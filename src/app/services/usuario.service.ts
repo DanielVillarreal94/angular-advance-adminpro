@@ -6,15 +6,16 @@ import { Router } from '@angular/router';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
+import { Usuario } from '../models/usuario.model';
 
 const baseUrl = environment.base_url;
-
 declare const gapi: any;
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
+  public usuario?: Usuario;
 
   auth2: any;
 
@@ -23,6 +24,14 @@ export class UsuarioService {
                private ngZone: NgZone) {
                  this.googleInit();
                }
+
+  get token() {
+    return localStorage.getItem('token') || '' ;
+  }
+
+  get userId(){
+    return this.usuario?.uid || '';
+  }
 
   googleInit() {
     return new Promise( (resolve: any) => {
@@ -48,16 +57,19 @@ export class UsuarioService {
   }
 
   validarToken(): Observable<boolean>{
-    const token = localStorage.getItem('token') || '' ;
+    const token = this.token;
     return this.http.get(`${ baseUrl }/login/renew`, {
       headers: {
         'x-token': token
       }
     }).pipe(
-      tap( (resp: any) =>{
+      map( (resp: any) =>{
+
+        const {nombre, email, role, google, img, uid} = resp.usuario;
+        this.usuario = new Usuario(nombre, email, role, google, img, uid);
         localStorage.setItem('token', resp.token);
+        return true;
       }),
-      map( resp => true ),
       catchError( error => of( false ))
     )
   }
@@ -69,6 +81,18 @@ export class UsuarioService {
                 localStorage.setItem('token', resp.token);
               })
             );
+  }
+
+  actualizarPerfil( data: {nombre: string, email: string, role:any}){
+    data = {
+      ...data,
+      role: this.usuario?.role
+    };
+    return this.http.put(`${ baseUrl }/usuarios/${ this.userId}`, data,{
+      headers:{
+        'x-token': this.token
+      }
+    })
   }
 
   login( formData: LoginForm ) {
