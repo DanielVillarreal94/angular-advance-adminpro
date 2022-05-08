@@ -17,8 +17,8 @@ export class PerfilComponent implements OnInit {
   public perfilForm: FormGroup | any;//hay problemas con las declaraciones de las variables por eso se agrega any
   public usuario?: Usuario | any;
   public imagenSubir: File | any;
-  public imagenUsuario: string = '';
   public imagenTemporal: any = '';
+  public imagenUsuario: string = '';
 
   constructor(private usuarioService: UsuarioService,
     private fb: FormBuilder,

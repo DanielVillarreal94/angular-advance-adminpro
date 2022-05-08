@@ -13,7 +13,7 @@ export class FileUploadService {
 
   constructor(private http: HttpClient) { }
 
-  actualizarFoto(archivo: File | any, tipo: 'usuarios' | 'medicos' | 'hopitales', usuarioId: string) {
+  actualizarFoto(archivo: File | any, tipo: 'usuarios' | 'medicos' | 'hopitales', usuarioId: string | any) {
 
     const url = `${ base_url }/upload/${ tipo }/${ usuarioId }`;
     const formData = new FormData(); // Para crear la data que se va a enviar al backend

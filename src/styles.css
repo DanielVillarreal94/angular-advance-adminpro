@@ -22,3 +22,34 @@
   height: 200px;
   width: 200px;
 }
+
+.w70{
+  width: 70px;
+}
+
+.w100{
+  width: 100px;
+}
+
+.w150{
+  width: 150px;
+}
+
+.avatar-table{
+  border-radius: 100%;
+  width: 50%;
+}
+
+.ocultar-modal{
+  display: none;
+}
+
+.fondo-modal-iamgen{
+  background-color: rgba(0, 0, 0, 0.4);
+  left: 0px;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 99999;
+}
