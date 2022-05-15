@@ -40,21 +40,26 @@
        <!-- ============================================================== -->
        <!-- User profile and search -->
        <!-- ============================================================== -->
-       <ul class="navbar-nav my-lg-0">
+       <ul class="navbar-nav my-lg-0" >
          <!-- ============================================================== -->
          <!-- Search -->
          <!-- ============================================================== -->
          <li class="nav-item hidden-xs-down search-box"> <a class="nav-link hidden-sm-down waves-effect waves-dark"
-             href="javascript:void(0)"><i class="ti-search"></i></a>
-           <form class="app-search">
-             <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i
-                 class="ti-close"></i></a> </form>
+             href="javascript:void(0)"
+             (click)="mostrarB()"><i class="ti-search"></i></a>
+           <form class="app-search" *ngIf="mostrarBuscador">
+             <input type="text" class="form-control" placeholder="Buscar usuarios, medicos u hospitales" #termino
+              (keyup.enter)="buscar(termino.value)">
+             <a class="srh-btn" (click)="ocultarB()" >
+               <i class="ti-close"></i>
+              </a>
+            </form>
          </li>
          <!-- ============================================================== -->
          <!-- Comment -->
          <!-- ============================================================== -->
          <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
+           <a class="nav-link dropdownf-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
              aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-message"></i>
              <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
            </a>

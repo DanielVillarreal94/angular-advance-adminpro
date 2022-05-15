@@ -15,6 +15,8 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { MedicoComponent } from './mantenimientos/medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -29,13 +31,15 @@ const routes: Routes = [
       { path: 'promesas', component: PromesasComponent, data: { titleParameter: 'Promesas' } },
       { path: 'rxjs', component: RxjsComponent, data: { titleParameter: 'RxJs' } },
       { path: 'perfil', component: PerfilComponent, data: { titleParameter: 'Perfil' } },
+      { path: 'buscar/:termino', component: BusquedaComponent, data: { titleParameter: 'Busqueda general' } },
 
       // Mantenimientos
-      { path: 'usuarios', component: UsuariosComponent, data: { titleParameter: 'Usuarios de la aplicación' }},
       { path: 'hospitales', component: HospitalesComponent, data: { titleParameter: 'Hospitales de la aplicación' }},
       { path: 'medicos', component: MedicosComponent, data: { titleParameter: 'Médicos de la aplicación' }},
       { path: 'medico/:id', component: MedicoComponent, data: { titleParameter: 'Médico de la aplicación' }},
 
+      // urls del Admin
+      { path: 'usuarios',canActivate:[AdminGuard], component: UsuariosComponent, data: { titleParameter: 'Usuarios de la aplicación' }},
     ]
   },
 ];
